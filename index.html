@@ -48,18 +48,15 @@
     .q9{left:60%;top:78%;font-size:clamp(13px,3.5vw,18px);color:#0066ff;font-weight:600;animation:float9 3.3s ease-in-out infinite .8s;}
 
     /* 로고 레이어 */
-    .logo-layer{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;opacity:0;transition:opacity .8s ease-in;z-index:5;pointer-events:none;}
+    .logo-layer{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity .8s ease-in;z-index:5;pointer-events:none;}
     .logo-layer.fade-in{opacity:1;}
     .logo-layer.fade-out{opacity:0;}
     .logo-layer img{max-width:60%;max-height:35vh;width:auto;height:auto;animation:logoFloat 4s ease-in-out infinite;filter:drop-shadow(0 20px 40px rgba(0,102,255,.15));}
-    .logo-subtitle{font-size:clamp(14px,3vw,18px);color:#515154;font-weight:500;letter-spacing:-.3px;}
     @keyframes logoFloat{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-10px) rotate(.5deg);}}
 
     /* 스토어 선택 레이어 (PC) */
-    .store-select-layer{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity .8s ease-in;z-index:20;gap:48px;pointer-events:none;padding:32px;}
+    .store-select-layer{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity .8s ease-in;z-index:20;pointer-events:none;padding:32px;}
     .store-select-layer.fade-in{opacity:1;pointer-events:auto;}
-    .store-select-title{font-size:clamp(20px,4vw,28px);color:#1d1d1f;font-weight:600;letter-spacing:-.5px;text-align:center;}
-    .store-select-title .blue{color:#0066ff;}
     .store-buttons{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;align-items:center;}
     .store-link{display:inline-block;transition:transform .25s ease;}
     .store-link:hover{transform:translateY(-6px);}
@@ -94,12 +91,10 @@
     <!-- 로고 레이어 -->
     <div class="logo-layer" id="logoLayer">
       <img src="web_logo_white.webp" alt="FOUR OFF">
-      <p class="logo-subtitle">포오프가 답합니다.</p>
     </div>
 
     <!-- 스토어 선택 레이어 (PC) -->
     <div class="store-select-layer" id="storeSelectLayer">
-      <p class="store-select-title">FOUR OFF, <span class="blue">무료 다운로드</span></p>
       <div class="store-buttons">
         <a href="https://play.google.com/store/apps/details?id=com.juhwanpark.fouroff&hl=ko" class="store-link">
           <img src="web_playstore.webp" alt="">
