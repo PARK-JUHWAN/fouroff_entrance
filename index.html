@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FOUR OFF | 다운로드</title>
+  <meta name="description" content="간호사 근무표, 이젠 자동으로. 포오프 무료 다운로드.">
+  <link rel="icon" type="image/png" href="web_logo_white.webp">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Pretendard','Apple SD Gothic Neo',sans-serif;overflow:hidden;background:#fff;min-height:100vh;color:#1d1d1f;}
+
+    .container{position:relative;width:100%;height:100vh;overflow:hidden;}
+
+    /* 키네틱 아트 레이어 */
+    .kinetic-layer{position:absolute;inset:0;opacity:1;transition:opacity .8s ease-out;z-index:10;pointer-events:none;}
+    .kinetic-layer.fade-out{opacity:0;}
+
+    /* 배경 블러 원 — 블루 톤 */
+    .bg-circle-1{position:absolute;top:15%;left:8%;width:200px;height:200px;background:#dbe7ff;border-radius:50%;opacity:.5;filter:blur(50px);}
+    .bg-circle-2{position:absolute;bottom:10%;right:10%;width:260px;height:260px;background:#a3c4ff;border-radius:50%;opacity:.35;filter:blur(60px);}
+
+    /* 질문들 */
+    .question{position:absolute;white-space:nowrap;opacity:0;transition:opacity .5s ease-out;font-weight:500;}
+    .question.show{opacity:1;}
+
+    /* 플로팅 애니메이션 */
+    @keyframes float0{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-10px) rotate(-2deg);}}
+    @keyframes float1{0%,100%{transform:translateY(0) rotate(2deg);}50%{transform:translateY(-8px) rotate(3deg);}}
+    @keyframes float2{0%,100%{transform:translateY(0) rotate(1deg);}50%{transform:translateY(-12px) rotate(2deg);}}
+    @keyframes float3{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-6px) rotate(-1deg);}}
+    @keyframes float4{0%,100%{transform:translateY(0) rotate(3deg);}50%{transform:translateY(-9px) rotate(4deg);}}
+    @keyframes float5{0%,100%{transform:translateY(0) rotate(-1deg);}50%{transform:translateY(-11px) rotate(0);}}
+    @keyframes float6{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-7px) rotate(-1deg);}}
+    @keyframes float7{0%,100%{transform:translateY(0) rotate(2deg);}50%{transform:translateY(-10px) rotate(3deg);}}
+    @keyframes float8{0%,100%{transform:translateY(0) rotate(1deg);}50%{transform:translateY(-8px) rotate(2deg);}}
+    @keyframes float9{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-9px) rotate(-2deg);}}
+
+    .q0{left:5%;top:8%;font-size:clamp(18px,5vw,30px);color:#0066ff;font-weight:700;animation:float0 3s ease-in-out infinite;}
+    .q1{left:65%;top:5%;font-size:clamp(12px,3vw,16px);color:#64748b;animation:float1 3.2s ease-in-out infinite .5s;}
+    .q2{left:12%;top:22%;font-size:clamp(16px,4vw,22px);color:#3b82f6;animation:float2 3.4s ease-in-out infinite 1s;}
+    .q3{left:70%;top:20%;font-size:clamp(11px,2.5vw,14px);color:#94a3b8;animation:float3 3.1s ease-in-out infinite .3s;}
+    .q4{left:3%;top:40%;font-size:clamp(13px,3.5vw,18px);color:#60a5fa;animation:float4 3.3s ease-in-out infinite .7s;}
+    .q5{left:50%;top:36%;font-size:clamp(20px,6vw,34px);color:#1e40af;font-weight:700;animation:float5 3.5s ease-in-out infinite .2s;}
+    .q6{left:8%;top:58%;font-size:clamp(12px,3vw,16px);color:#64748b;animation:float6 3.2s ease-in-out infinite .9s;}
+    .q7{left:55%;top:60%;font-size:clamp(14px,4vw,20px);color:#3b82f6;animation:float7 3.4s ease-in-out infinite .4s;}
+    .q8{left:5%;top:75%;font-size:clamp(10px,2.5vw,13px);color:#94a3b8;animation:float8 3.1s ease-in-out infinite .6s;}
+    .q9{left:60%;top:78%;font-size:clamp(13px,3.5vw,18px);color:#0066ff;font-weight:600;animation:float9 3.3s ease-in-out infinite .8s;}
+
+    /* 로고 레이어 */
+    .logo-layer{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;opacity:0;transition:opacity .8s ease-in;z-index:5;pointer-events:none;}
+    .logo-layer.fade-in{opacity:1;}
+    .logo-layer.fade-out{opacity:0;}
+    .logo-layer img{max-width:60%;max-height:35vh;width:auto;height:auto;animation:logoFloat 4s ease-in-out infinite;filter:drop-shadow(0 20px 40px rgba(0,102,255,.15));}
+    .logo-subtitle{font-size:clamp(14px,3vw,18px);color:#515154;font-weight:500;letter-spacing:-.3px;}
+    @keyframes logoFloat{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-10px) rotate(.5deg);}}
+
+    /* 스토어 선택 레이어 (PC) */
+    .store-select-layer{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transition:opacity .8s ease-in;z-index:20;gap:48px;pointer-events:none;padding:32px;}
+    .store-select-layer.fade-in{opacity:1;pointer-events:auto;}
+    .store-select-title{font-size:clamp(20px,4vw,28px);color:#1d1d1f;font-weight:600;letter-spacing:-.5px;text-align:center;}
+    .store-select-title .blue{color:#0066ff;}
+    .store-buttons{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;align-items:center;}
+    .store-link{display:inline-block;transition:transform .25s ease;}
+    .store-link:hover{transform:translateY(-6px);}
+    .store-link img{width:180px;height:180px;filter:drop-shadow(0 14px 30px rgba(0,0,0,.12));}
+
+    @media(max-width:640px){
+      .store-buttons{gap:20px;}
+      .store-link img{width:140px;height:140px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 키네틱 아트 레이어 -->
+    <div class="kinetic-layer" id="kineticLayer">
+      <div class="bg-circle-1"></div>
+      <div class="bg-circle-2"></div>
+
+      <div class="question q0">이번달 4연휴 가능할까?</div>
+      <div class="question q1">또 수정해야 해?</div>
+      <div class="question q2">야간 또 나야?</div>
+      <div class="question q3">월차 언제 쓰지?</div>
+      <div class="question q4">엑셀로 또 짜?</div>
+      <div class="question q5">왜 나만 주말근무?</div>
+      <div class="question q6">신규는 또 N?</div>
+      <div class="question q7">나이트 끝나고 데이?</div>
+      <div class="question q8">수쌤 야근하시네</div>
+      <div class="question q9">이번달은 균형 맞을까?</div>
+    </div>
+
+    <!-- 로고 레이어 -->
+    <div class="logo-layer" id="logoLayer">
+      <img src="web_logo_white.webp" alt="FOUR OFF">
+      <p class="logo-subtitle">포오프가 답합니다.</p>
+    </div>
+
+    <!-- 스토어 선택 레이어 (PC) -->
+    <div class="store-select-layer" id="storeSelectLayer">
+      <p class="store-select-title">FOUR OFF, <span class="blue">무료 다운로드</span></p>
+      <div class="store-buttons">
+        <a href="https://play.google.com/store/apps/details?id=com.juhwanpark.fouroff&hl=ko" class="store-link">
+          <img src="web_playstore.webp" alt="">
+        </a>
+        <a href="https://apps.apple.com/kr/app/%EA%B0%84%ED%98%B8%EC%82%AC-%EA%B7%BC%EB%AC%B4%ED%91%9C-%ED%8F%AC%EC%98%A4%ED%94%84/id6756883621" class="store-link">
+          <img src="web_appstore.webp" alt="">
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const IOS_URL = 'https://apps.apple.com/kr/app/%EA%B0%84%ED%98%B8%EC%82%AC-%EA%B7%BC%EB%AC%B4%ED%91%9C-%ED%8F%AC%EC%98%A4%ED%94%84/id6756883621';
+    const ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.juhwanpark.fouroff&hl=ko';
+
+    function getOS() {
+      const ua = navigator.userAgent;
+      if (/iPhone|iPad|iPod/i.test(ua)) return 'ios';
+      if (/Android/i.test(ua)) return 'android';
+      return 'unknown';
+    }
+
+    function showQuestions() {
+      const questions = document.querySelectorAll('.question');
+      questions.forEach((q, i) => {
+        setTimeout(() => q.classList.add('show'), i * 80);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const os = getOS();
+
+      // 0초: 질문 등장 시작
+      showQuestions();
+
+      // 2.2초: 키네틱 fade out
+      setTimeout(() => {
+        document.getElementById('kineticLayer').classList.add('fade-out');
+      }, 2200);
+
+      // 3초: 로고 fade in
+      setTimeout(() => {
+        document.getElementById('logoLayer').classList.add('fade-in');
+      }, 3000);
+
+      // 4.5초: 디바이스 분기
+      setTimeout(() => {
+        if (os === 'ios') {
+          window.location.href = IOS_URL;
+        } else if (os === 'android') {
+          window.location.href = ANDROID_URL;
+        } else {
+          // PC: 로고 fade out → 스토어 선택 fade in
+          document.getElementById('logoLayer').classList.remove('fade-in');
+          document.getElementById('logoLayer').classList.add('fade-out');
+          document.getElementById('storeSelectLayer').classList.add('fade-in');
+        }
+      }, 4500);
+    });
+  </script>
+</body>
+</html>
